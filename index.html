@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOST MUHAMMAD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body ondblclick="toggleFullScreen(event)">
+
+    <!-- Mobile Unsupported Overlay -->
+    <div id="mobileOverlay">
+        <div class="mobile-message">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🚫</div>
+            <h2>Unsupported Device Screen</h2>
+            <p>Open In Laptop or Desktop Computer</p>
+        </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen">
+        <div class="welcome-bg-orb orb1"></div>
+        <div class="welcome-bg-orb orb2"></div>
+        <div class="welcome-bg-orb orb3"></div>
+
+        <div class="welcome-content">
+            <div class="welcome-icon"></div>
+            <h1 class="welcome-title" id="welcomeTitleText" contenteditable="true" ondblclick="openGlobalSettings()" onblur="localStorage.setItem('welcome_title', this.innerText)" style="outline: none; cursor: pointer;">MUQAMI ERA 2026</h1>
+            <p class="welcome-subtitle" id="welcomeSubtitleText" contenteditable="true" onblur="localStorage.setItem('welcome_subtitle', this.innerText)" style="outline: none;">بسم اللہ الرحمن الرحیم</p>
+
+            <div class="welcome-divider"></div>
+            <button class="welcome-btn" onclick="showLogoScreen()">
+                <span>Event View</span>
+                <span class="btn-arrow"></span>
+            </button>
+            <button class="welcome-btn" onclick="enterApp()">
+                <span>Smart Scoreboard</span>
+                <span class="btn-arrow"></span>
+            </button>
+            <button class="welcome-btn" onclick="showTimerScreen()">
+                <span>Smart Timer</span>
+                <span class="btn-arrow"></span>
+            </button>
+            <button class="welcome-btn" onclick="showTossScreen()">
+                <span>Smart Toss</span>
+                <span class="btn-arrow"></span>
+            </button>
+           
+
+            <div class="welcome-creator" style="font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif;">
+                <span id="devText1" contenteditable="true" onblur="localStorage.setItem('devText1', this.innerText)" style="outline: none;">Developed by</span>
+                <span class="creator-name" id="devText2" contenteditable="true" onblur="localStorage.setItem('devText2', this.innerText)" style="outline: none;">Dost Muhammad</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="winnerScreen" ondblclick="hideWinnerScreen()">
+        <img id="wsLogo" class="app-logo-img" src="" alt="Logo" style="display:none; margin-bottom: 20px; transition: height 0.3s ease;">
+        <div class="ws-title" id="wsTitle">نتیجہ</div>
+        <div class="ws-grid" id="wsGrid"></div>
+    </div>
+
+    <!-- Timer Screen overlay -->
+    <div id="timerScreen" class="timer-screen">
+        <div id="timerTopWrapper" style="display: flex; flex-direction: column; align-items: center; width: 100%; transition: margin-top 0.3s ease;">
+            <img id="logoTimer" class="app-logo-img" src="" alt="Logo" />
+            <h1 class="main-title" contenteditable="true" id="timerMainTitle" ondblclick="openTimerSettings(event)" title="Double click for Settings" style="font-size: 5rem; margin-top: 0;">ٹائٹل لکھیں!</h1>
+        
+            <div id="smartTimerContainer" title="Double click to set Timer" ondblclick="openTimerSettings(event)">
+                <h1 class="timer-display" id="smartTimerDisplay">05:00</h1>
+            </div>
+        </div>
+        
+        <div class="timer-subtitle" id="timerSubtitle" contenteditable="true" onblur="localStorage.setItem('timerSubtitle', this.innerText)" style="margin-top:auto; outline:none; min-height: 40px;">Any Text</div>
+
+        <!-- Timer Settings Modal -->
+        <div id="timerSettingsModal" onclick="hideTimerSettings(event)">
+            <div id="timerSettingsBox" onclick="event.stopPropagation()">
+                <h2>⏱️ Smart Timer Settings</h2>
+                
+                <div class="settings-columns">
+                    <div class="settings-column">
+                        <div class="settings-group-title">Time Setup</div>
+                        <div class="timer-input-group">
+                            <label>Warning Beep at (sec):</label>
+                            <input type="number" id="timerWarning" value="10" min="0">
+                        </div>
+                        
+                        <div class="settings-group-title">Layout & Styling</div>
+                        <div class="timer-input-group">
+                            <label>Top Margin (Up/Down):</label>
+                            <input type="number" id="timerTopMargin" value="0" step="10">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Title Size (rem):</label>
+                            <input type="number" id="timerTitleSize" value="5" step="0.5" min="1">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Title Color:</label>
+                            <input type="color" id="timerTitleColor" value="#ffffff">
+                        </div>
+                        
+                        <div class="settings-group-title">Background</div>
+                        <div class="timer-input-group">
+                            <label>Theme:</label>
+                            <select id="timerBgTheme">
+                                <option value="0">Purple Sky</option>
+                                <option value="1">Dark Night</option>
+                                <option value="2">Sunset</option>
+                                <option value="3">Ocean Mint</option>
+                                <option value="4">Golden Hour</option>
+                                <option value="5">Deep Space</option>
+                                <option value="6">Rose Gold</option>
+                                <option value="7">Lush Green</option>
+                                <option value="8">Fire Blaze</option>
+                                <option value="9">Arctic Ice</option>
+                                <option value="10">Midnight</option>
+                                <option value="11">Pure White</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-column">
+                        <div class="settings-group-title">Timer Styling</div>
+                        <div class="timer-input-group">
+                            <label>Timer Size (rem):</label>
+                            <input type="number" id="timerFontSize" value="15" step="1" min="1">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Normal Color:</label>
+                            <input type="color" id="timerNormalColor" value="#ffffff">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Warning Color:</label>
+                            <input type="color" id="timerWarningColor" value="#ff4d4d">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Timeout Color:</label>
+                            <input type="color" id="timerZeroColor" value="#ff4d4d">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-save" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); font-size: 1.2rem; padding: 10px 20px; border-radius: 30px; cursor: pointer; color: white; border: none; box-shadow: 0 4px 15px rgba(255,75,43,0.4);" onclick="applyTimerSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toss Screen overlay -->
+    <div id="tossScreen" class="timer-screen">
+        <img id="logoToss" class="app-logo-img" src="" alt="Logo" />
+        <h1 class="main-title" contenteditable="true" id="tossMainTitle" ondblclick="openTossSettings(event)" title="Double click for Settings" style="font-size: 4rem; margin-top: 40px; text-shadow: 0 4px 15px rgba(0,0,0,0.5);">ٹاس / قرعہ اندازی</h1>
+
+        <!-- Toss Settings Modal -->
+        <div id="tossSettingsModal" onclick="hideTossSettings(event)">
+            <div id="tossSettingsBox" onclick="event.stopPropagation()">
+                <h2>⚙️ Toss Settings</h2>
+                
+                <div class="settings-columns">
+                    <div class="settings-column">
+                        <div class="settings-group-title">Manage Teams</div>
+                        <div class="toss-controls" style="background: none; padding: 0; margin-top: 0; backdrop-filter: none; box-shadow: none;">
+                            <button class="btn btn-save" style="background-color: #2ecc71; width: 100%; padding: 10px;" onclick="addTossTeam()">ایڈ گروپ (Add Group)</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-column">
+                        <div class="settings-group-title">Configuration</div>
+                        <div class="timer-input-group">
+                            <label>Box Size (px):</label>
+                            <input type="number" id="tossCardSize" value="150" step="10" min="50">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Box Color (Logo Side):</label>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="flex: 1;">
+                                    <span style="font-size: 0.8rem; display: block; margin-bottom: 3px;">Background</span>
+                                    <input type="color" id="tossBoxBackColorPicker" value="#1cb5e0" style="width: 100%; height: 35px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; background: rgba(255,255,255,0.1); padding: 2px;">
+                                </div>
+                                <div style="flex: 1;">
+                                    <span style="font-size: 0.8rem; display: block; margin-bottom: 3px;">Text/Icon</span>
+                                    <input type="color" id="tossBoxTextColorPicker" value="#ffffff" style="width: 100%; height: 35px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; cursor: pointer; background: rgba(255,255,255,0.1); padding: 2px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Box Font Size (rem):</label>
+                            <input type="number" id="tossFontSize" value="1.8" step="0.1" min="0.5">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Number Size (rem):</label>
+                            <input type="number" id="tossNumberSize" value="1" step="0.1" min="0.5">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Number Color:</label>
+                            <input type="color" id="tossNumberColor" value="#666666">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Heading Size (rem):</label>
+                            <input type="number" id="tossHeadingSize" value="4.0" step="0.2" min="1">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Heading Color:</label>
+                            <input type="color" id="tossHeadingColor" value="#ffffff">
+                        </div>
+                        <div class="timer-input-group">
+                            <label>Background Theme:</label>
+                            <select id="tossBgTheme">
+                                <option value="0">Purple Sky</option>
+                                <option value="1">Dark Night</option>
+                                <option value="2">Sunset</option>
+                                <option value="3">Ocean Mint</option>
+                                <option value="4">Golden Hour</option>
+                                <option value="5">Deep Space</option>
+                                <option value="6">Rose Gold</option>
+                                <option value="7">Lush Green</option>
+                                <option value="8">Fire Blaze</option>
+                                <option value="9">Arctic Ice</option>
+                                <option value="10">Midnight</option>
+                                <option value="11">Pure White</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-save" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); font-size: 1.2rem; padding: 10px 20px; border-radius: 30px; cursor: pointer; color: white; border: none; box-shadow: 0 4px 15px rgba(255,75,43,0.4);" onclick="applyTossSettings()">OK - Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn" style="color: #333; font-size: 1.6rem; padding: 15px 40px; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);" onclick="handleTossAction()">Shuffle</button>
+        </div>
+
+        <div id="tossGrid" class="toss-grid"></div>
+
+        <div class="timer-subtitle" id="tossSubtitle" contenteditable="true" onblur="localStorage.setItem('tossSubtitle', this.innerText)" style="margin-top: auto; padding-bottom: 20px; outline:none; min-height: 60px;">Any Text</div>
+    </div>
+
+    <!-- Logo Screen overlay -->
+    <div id="logoScreen" class="timer-screen" style="justify-content: flex-start; padding-top: 50px;">
+        <div id="logoTopWrapper" style="display: flex; flex-direction: column; align-items: center; width: 100%; transition: margin-top 0.3s ease;">
+            <img id="logoBig" class="app-logo-img" src="" alt="Logo" ondblclick="openLogoSettings(event)" style="display: none; object-fit: contain; max-width: 90vw; cursor: pointer;" title="Double click for Settings" />
+            <h1 class="main-title" contenteditable="true" id="logoMainTitle" ondblclick="openLogoSettings(event)" title="Double click for Settings" style="font-size: 5rem; margin-top: 20px;">ٹائٹل لکھیں!</h1>
+        </div>
+        
+        <!-- Logo Settings Modal -->
+        <div id="logoSettingsModal" onclick="hideLogoSettings(event)" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.55); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+            <div id="logoSettingsBox" onclick="event.stopPropagation()" style="background: #1a1a2e; border: 2px solid #ff4b2b; border-radius: 16px; padding: 30px; width: 500px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.6); color: white; font-family: Arial, sans-serif; direction: ltr;">
+                <h2 style="text-align: center; margin-top: 0; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px;">🖼️ Smart Logo Settings</h2>
+                
+                <div class="timer-input-group">
+                    <label>Top Margin (Up/Down):</label>
+                    <input type="number" id="logoTopMargin" value="0" step="10">
+                </div>
+                <div class="timer-input-group">
+                    <label>Logo Size (px):</label>
+                    <input type="number" id="logoSizeSettingsInput" value="300" step="10" min="50">
+                </div>
+                <div class="timer-input-group">
+                    <label>Title Size (rem):</label>
+                    <input type="number" id="logoTitleSize" value="5" step="0.5" min="1">
+                </div>
+                <div class="timer-input-group">
+                    <label>Title Color:</label>
+                    <input type="color" id="logoTitleColor" value="#ffffff">
+                </div>
+                <div class="timer-input-group">
+                    <label>Background Theme:</label>
+                    <select id="logoBgTheme" style="width: 140px; font-size: 1.1rem; padding: 6px; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                        <option value="0">Purple Sky</option>
+                        <option value="1">Dark Night</option>
+                        <option value="2">Sunset</option>
+                        <option value="3">Ocean Mint</option>
+                        <option value="4">Golden Hour</option>
+                        <option value="5">Deep Space</option>
+                        <option value="6">Rose Gold</option>
+                        <option value="7">Lush Green</option>
+                        <option value="8">Fire Blaze</option>
+                        <option value="9">Arctic Ice</option>
+                        <option value="10">Midnight</option>
+                        <option value="11">Pure White</option>
+                    </select>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-save" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); font-size: 1.2rem; padding: 10px 20px; border-radius: 30px; cursor: pointer; color: white; border: none; box-shadow: 0 4px 15px rgba(255,75,43,0.4);" onclick="applyLogoScreenSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toss Confirm Overlay -->
+    <div id="tossConfirmOverlay" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+        <div class="custom-alert-box">
+           
+            <p style="font-size: 1.5rem; line-height: 2;"َََ>Reshuffle</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="custom-alert-btn" style="background:#e74c3c;" onclick="closeTossConfirm()">No</button>
+                <button class="custom-alert-btn" style="background:#2ecc71;" onclick="confirmTossReset()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global App Settings Modal -->
+    <div id="globalSettingsModal" onclick="hideGlobalSettings(event)" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10005; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+        <div id="globalSettingsBox" onclick="event.stopPropagation()" style="background: #112233; padding: 40px; border-radius: 15px; width: 500px; max-width: 90%; color: white; box-shadow: 0 10px 40px rgba(0,0,0,0.5); text-align: left;">
+            <h2 style="margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px;">⚙️ App Settings</h2>
+            
+            <div class="timer-input-group" style="margin-bottom: 20px;">
+                <label>Add App Logo:</label>
+                <div style="display: flex; gap: 10px; align-items: center; width: 60%;">
+                    <input type="file" id="logoUploadInput" accept="image/*" onchange="handleLogoUpload(event)" style="width: 100%;">
+                    <button class="btn" style="background: #e74c3c; color: white; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; flex-shrink: 0;" onclick="removeAppLogo()" title="Remove Logo">🗑️</button>
+                </div>
+            </div>
+            
+            <div class="timer-input-group" style="margin-bottom: 20px;">
+                <label>Logo Size (px):</label>
+                <input type="number" id="logoSizeInput" value="100" min="20" max="600" oninput="applyLogoSettings(true)">
+            </div>
+            
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 25px 0;">
+
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn" style="flex: 1; background: #27ae60; color: white; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;" onclick="exportData()">💾 Export JSON</button>
+                <button class="btn" style="flex: 1; background: #8e44ad; color: white; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;" onclick="importData()">📂 Import JSON</button>
+                <input type="file" id="importInput" style="display:none" onchange="processFile(this)">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn" style="flex: 1; background: #e74c3c; color: white; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;" onclick="clearAllAppCaches()">🗑️ Clear All Caches</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-save" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); font-size: 1.2rem; padding: 10px 20px; border-radius: 30px; cursor: pointer; color: white; border: none;" onclick="closeGlobalSettings()">Close Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <img id="logoScoreboard" class="app-logo-img" src="" alt="Logo" />
+    <h1 class="main-title" contenteditable="true" id="mainTitle">ٹائٹل لکھیں!</h1>
+
+    <div class="controls hidden-controls" id="adminControls">
+        <div style="width: 100%; text-align: center; font-size: 0.7rem; color: #666; margin-bottom: 5px; cursor: move;">
+            🟰</div>
+
+        <button class="btn btn-add" onclick="toggleSbTimerVisibility()">Timer ON/OFF</button>
+        <button class="btn btn-add" id="toggleSortBtn" onclick="toggleAutoSort()">Auto-Sort: OFF</button>
+        <button class="btn btn-add" onclick="addGroup()">Add Group</button>
+        <button class="btn btn-add" onclick="addComp()">Add Column</button>
+        <button class="btn btn-h" onclick="changeH(0.2)">Heading Size+</button>
+        <button class="btn btn-h" onclick="changeH(-0.2)">Heading Size-</button>
+        <button class="btn btn-f" onclick="changeF(0.1)">Text Size+</button>
+        <button class="btn btn-f" onclick="changeF(-0.1)">Text Size-</button>
+        <button class="btn btn-s" onclick="changeS(0.1)">Score Size+</button>
+        <button class="btn btn-s" onclick="changeS(-0.1)">Score Size-</button>
+        <button class="btn btn-w" onclick="changeW(5)">Table Width+</button>
+        <button class="btn btn-w" onclick="changeW(-5)">Table Width-</button>
+        <button class="btn btn-height" onclick="changeRowHeight(2)">Table Height+</button>
+        <button class="btn btn-height" onclick="changeRowHeight(-2)">Table Height-</button>
+      
+        <button class="btn btn-color" onclick="showColorPanel()">🎨Group Color</button>
+        <button class="btn btn-color" onclick="showCompHeaderColorPanel()">🎨Column Color</button>
+        <button class="btn btn-color" onclick="showHeadingColorPanel()">🎨 Heading Color</button>
+        <button class="btn btn-bg" onclick="showBgPanel()">🌄Themes</button>
+        <button class="btn btn-save" style="background-color: #27ae60;" onclick="toggleTranspose()">Switch View!
+            ⇄</button>
+        <div style="width: 100%; text-align: center; font-size: 1.5rem; color: #666; margin-bottom: 5px; cursor: move;">
+            (Alt+R to Winner Screen)</div>
+    </div>
+
+    <!-- Color Panel Modal -->
+    <div id="colorPanel" onclick="hideColorPanel(event)">
+        <div id="colorPanelBox">
+            <div id="colorPanelTitle">🎨Select Group Heading Colors</div>
+            <div id="colorGroupList"></div>
+            <button class="color-panel-close" onclick="closeColorPanel()">Close</button>
+        </div>
+    </div>
+
+    <!-- BG Change Panel -->
+    <div id="bgPanel" onclick="hideBgPanel(event)">
+        <div id="bgPanelBox">
+            <div id="bgPanelTitle">🌄Select Themes</div>
+            <div class="bg-grid" id="bgGrid"></div>
+            <button class="color-panel-close" onclick="closeBgPanel()">Close</button>
+        </div>
+    </div>
+
+    <div class="table-container" ondblclick="event.stopPropagation()">
+        <table>
+            <thead>
+                <tr id="hRow"></tr>
+            </thead>
+            <tbody id="bRow"></tbody>
+        </table>
+    </div>
+
+    <!-- Scoreboard Timer Overlay -->
+    <div id="sbTimerContainer" ondblclick="openSbTimerSettings(event)" style="display:none; position: fixed; bottom: 30px; left: auto; right: 30px; top: auto; z-index: 900; background: rgba(0,0,0,0.6); padding: 15px 30px; border-radius: 15px; border: 2px solid rgba(255,255,255,0.2); cursor: grab; backdrop-filter: blur(5px); user-select: none;">
+        <div id="sbTimerDisplay" style="color: #ffffff; font-family: monospace; font-size: 5rem; font-weight: bold; text-shadow: 0 4px 10px rgba(0,0,0,0.5); line-height: 1;">03:00</div>
+    </div>
+
+    <!-- Scoreboard Timer Settings Modal -->
+    <div id="sbTimerSettingsModal" onclick="hideSbTimerSettings(event)" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10005; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+        <div id="sbTimerSettingsBox" onclick="event.stopPropagation()" style="background: #112233; padding: 40px; border-radius: 15px; width: 750px; max-width: 90%; color: white; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+            <h2 style="margin-top: 0; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px;">⏱️ Timer Settings</h2>
+            
+            <div class="settings-columns" style="display: flex; gap: 20px;">
+                <div class="settings-column" style="flex: 1;">
+                    <div class="settings-group-title">Time Adjust</div>
+                    <div class="timer-input-group">
+                        <label>Minutes:</label>
+                        <input type="number" id="sbTimerMin" value="3" min="0">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Seconds:</label>
+                        <input type="number" id="sbTimerSec" value="0" min="0" max="59">
+                    </div>
+                    <div class="timer-input-group" style="margin-top: 15px;">
+                        <label>Warning at (Secs):</label>
+                        <input type="number" id="sbTimerWarnInput" value="30" min="0">
+                    </div>
+                    <div class="timer-input-group" style="margin-top: 15px;">
+                        <button class="btn btn-save" style="background:#3498db; width: 100%; padding: 10px; margin-bottom: 10px;" onclick="resetSbTimerPos()">Reset Timer Position</button>
+                    </div>
+                </div>
+
+                <div class="settings-column" style="flex: 1;">
+                    <div class="settings-group-title">Styling & Config</div>
+                    <div class="timer-input-group">
+                        <label>Timer Size (rem):</label>
+                        <input type="number" id="sbTimerSizeInput" value="5" step="0.5" min="1">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Normal Color:</label>
+                        <input type="color" id="sbTimerColorNormal" value="#ffffff">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Warning Color:</label>
+                        <input type="color" id="sbTimerColorWarn" value="#ff4d4d">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Timeout Color:</label>
+                        <input type="color" id="sbTimerColorZero" value="#ff4d4d">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Background Color:</label>
+                        <input type="color" id="sbTimerBgColor" value="#000000">
+                    </div>
+                    <div class="timer-input-group">
+                        <label>Background Opacity:</label>
+                        <input type="range" id="sbTimerBgOpacity" min="0" max="1" step="0.1" value="0.6" style="width: 100%;">
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn btn-save" style="background: linear-gradient(135deg, #ff416c, #ff4b2b); font-size: 1.2rem; padding: 10px 20px; border-radius: 30px; cursor: pointer; color: white; border: none;" onclick="applySbTimerSettings()">Save & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Downloading Overlay -->
+    <div id="downloadOverlay">
+        <div class="download-spinner"></div>
+        <div class="download-text">Installing</div>
+    </div>
+
+    <!-- Custom Alert Overlay -->
+    <div id="customAlertOverlay">
+        <div class="custom-alert-box">
+            <h2 id="customAlertTitle">Completed</h2>
+            <p id="customAlertMessage">App installed successfully.</p>
+            <button class="custom-alert-btn" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+
+</html>

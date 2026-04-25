@@ -1,0 +1,1340 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+:root {
+    --h-size: 3rem;
+    --f-size: 1.1rem;
+    --t-width: 80%;
+    --row-height: 8px;
+    --s-size: 1.3rem;
+}
+
+body {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.main-title {
+    font-size: var(--h-size);
+    color: var(--heading-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+    text-align: center;
+    white-space: pre-wrap;
+    cursor: text;
+}
+
+.controls {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    width: 280px;
+    cursor: move;
+    border: 2px solid #1e3c72;
+}
+
+.hidden-controls {
+    display: none !important;
+}
+
+.btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    flex: 1 1 45%;
+    margin: 2px;
+}
+
+.btn-add {
+    background-color: #208100;
+}
+
+.btn-del {
+    background-color: #ff0000;
+}
+
+.btn-h {
+    background-color: #8e44ad;
+}
+
+.btn-f {
+    background-color: #2c3e50;
+}
+
+.btn-w {
+    background-color: #1e3c72;
+}
+
+.btn-height {
+    background-color: #f39c12;
+}
+
+.btn-s {
+    background-color: #d35400;
+}
+
+.btn-save {
+    background-color: #2980b9;
+    flex: 1 1 100%;
+    font-weight: bold;
+}
+
+.btn-load {
+    background-color: #16a085;
+    flex: 1 1 100%;
+    font-weight: bold;
+}
+
+.btn-clear {
+    background-color: #e74c3c;
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+.table-container {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: var(--t-width);
+    overflow: auto;
+    max-height: 80vh;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--f-size);
+}
+
+th,
+td {
+    padding: var(--row-height) 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+    white-space: nowrap;
+    position: relative;
+}
+
+th {
+    background: #1e3c72;
+    color: white;
+}
+
+.group-name-cell {
+    font-weight: bold;
+    padding: var(--row-height) 15px !important;
+    min-width: 100px;
+}
+
+/* Hide arrows from number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    width: 60px;
+    text-align: center;
+    font-size: var(--s-size);
+    font-weight: normal;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    background: transparent;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    direction: ltr;
+}
+
+.total-score-cell {
+    font-size: calc(var(--s-size) + 0.2rem) !important;
+    font-weight: normal !important;
+    color: #000;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+}
+
+.winner-cell {
+    color: #000 !important;
+}
+
+.hints-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.hint {
+    color: #fff;
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 6px 18px;
+    border-radius: 20px;
+}
+
+.rank-tag {
+    font-size: 0.8em;
+    margin-right: 0;
+    font-weight: normal;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+}
+
+.inline-del {
+    background-color: transparent;
+    color: #ff4d4d;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 8px;
+    /* RTL visual gap */
+    padding: 0;
+    font-weight: bold;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.inline-del:hover {
+    opacity: 1;
+    color: #ff0000;
+}
+
+.hide-inline-del .inline-del,
+.hide-inline-del #manualRow,
+.hide-inline-del #stepRow,
+.hide-inline-del #subStepRow {
+    display: none !important;
+}
+
+.clickable-total {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.clickable-total:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+#winnerScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+#winnerScreen.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.ws-title {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    margin-bottom: 24px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    white-space: pre-wrap;
+    text-align: center;
+}
+
+.ws-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: min(90%, 800px);
+    direction: rtl;
+}
+
+.ws-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.ws-group-name {
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.ws-points {
+    font-family: Arial, sans-serif;
+    /* font-weight: bold; */
+}
+
+.resizer-col {
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: col-resize;
+    user-select: none;
+    z-index: 10;
+}
+
+.resizer-row {
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    cursor: row-resize;
+    user-select: none;
+    z-index: 10;
+}
+
+.resizer-col:hover,
+.resizer-row:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ========== Group Color Panel ========== */
+.btn-color {
+    background-color: #6c3483;
+    flex: 1 1 100%;
+    font-weight: bold;
+}
+
+#colorPanel {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+#colorPanel.show {
+    display: flex;
+}
+
+#colorPanelBox {
+    background: #1a1a2e;
+    border: 2px solid #6c3483;
+    border-radius: 16px;
+    padding: 25px 30px;
+    width: 480px;
+    max-width: 95vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    direction: rtl;
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+
+#colorPanelTitle {
+    font-size: 1.4rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 12px;
+}
+
+.color-group-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.color-group-label {
+    font-size: 1rem;
+    color: #eee;
+    min-width: 90px;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+}
+
+.color-swatches {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.swatch:hover {
+    transform: scale(1.25);
+    border-color: white;
+}
+
+.swatch.active {
+    border-color: #fff;
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px #6c3483;
+}
+
+.swatch-reset {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.swatch-reset:hover {
+    transform: scale(1.25);
+    border-color: white;
+}
+
+.color-panel-close {
+    display: block;
+    margin: 18px auto 0;
+    padding: 8px 24px;
+    background: #6c3483;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    transition: background 0.2s;
+}
+
+.color-panel-close:hover {
+    background: #8e44ad;
+}
+
+/* ========== Welcome Screen ========== */
+#welcomeScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#welcomeScreen.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+.welcome-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: orbFloat 8s ease-in-out infinite;
+}
+
+.orb1 {
+    width: 400px; height: 400px;
+    background: #6c3483;
+    top: -100px; left: -100px;
+    animation-delay: 0s;
+}
+
+.orb2 {
+    width: 350px; height: 350px;
+    background: #1565c0;
+    bottom: -80px; right: -80px;
+    animation-delay: 3s;
+}
+
+.orb3 {
+    width: 250px; height: 250px;
+    background: #00838f;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 1.5s;
+}
+
+@keyframes orbFloat {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50%       { transform: scale(1.15) translate(15px, -15px); }
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 50px 60px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    animation: welcomeIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    text-align: center;
+    min-width: 360px;
+}
+
+@keyframes welcomeIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0)   scale(1);   }
+}
+
+.welcome-icon {
+    font-size: 5rem;
+    animation: trophyBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(249, 168, 37, 0.6));
+}
+
+@keyframes trophyBounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-12px) rotate(5deg); }
+}
+
+.welcome-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    letter-spacing: 2px;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Inter', Arial, sans-serif;
+    text-shadow: 0 0 30px rgba(255,255,255,0.3);
+}
+
+.welcome-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+.welcome-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #6c3483, #1565c0);
+    border-radius: 10px;
+}
+
+.welcome-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #6c3483, #1565c0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(108, 52, 131, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.welcome-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -60%;
+    width: 50%; height: 200%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-20deg);
+    animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+    0%   { left: -60%; }
+    100% { left: 160%; }
+}
+
+.welcome-btn:hover, .welcome-btn.keyboard-selected {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(108, 52, 131, 0.7);
+}
+
+.btn-arrow {
+    font-size: 1.3rem;
+    font-family: Arial, sans-serif;
+    transition: transform 0.2s;
+}
+
+.welcome-btn:hover .btn-arrow, .welcome-btn.keyboard-selected .btn-arrow {
+    transform: translateX(5px);
+}
+
+.welcome-creator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+    font-family: 'Inter', Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+.creator-name {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========== BG Panel ========== */
+.btn-bg {
+    background-color: #00695c;
+    flex: 1 1 100%;
+    font-weight: bold;
+}
+
+#bgPanel {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.55);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+#bgPanel.show { display: flex; }
+
+#bgPanelBox {
+    background: #1a1a2e;
+    border: 2px solid #00695c;
+    border-radius: 16px;
+    padding: 25px 30px;
+    width: 520px;
+    max-width: 95vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    direction: rtl;
+    animation: popIn 0.25s ease;
+}
+
+#bgPanelTitle {
+    font-size: 1.3rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 12px;
+}
+
+.bg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.bg-card {
+    height: 80px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.bg-card.active {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px #00695c, 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.bg-card-label {
+    font-size: 0.75rem;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+    position: relative;
+    z-index: 1;
+}
+
+/* Background Themes */
+body.bg-0 { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+body.bg-1 { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); }
+body.bg-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+body.bg-3 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+body.bg-4 { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+body.bg-5 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+body.bg-6 { background: linear-gradient(135deg, #f8cdda 0%, #1d2b64 100%); }
+body.bg-7 { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); }
+body.bg-8 { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
+body.bg-9 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+body.bg-10 { background: linear-gradient(135deg, #232526 0%, #414345 100%); }
+body.bg-11 { background: #ffffff; }
+
+/* ========== Mobile Unsupported Overlay ========== */
+#mobileOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    z-index: 100000;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+}
+
+.mobile-message h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 2px;
+    color: #ff4d4d;
+}
+
+.mobile-message p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    #mobileOverlay {
+        display: flex;
+    }
+    body {
+        overflow: hidden;
+    }
+    #welcomeScreen, #winnerScreen, .main-title, .controls, .table-container, #colorPanel, #bgPanel {
+        display: none !important;
+    }
+}
+
+/* Button & step styling additions */
+.cell-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+}
+
+@keyframes blinkDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cell-input-wrapper:focus-within::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    width: 5px;
+    height: 5px;
+    background-color: #555;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: blinkDot 1s infinite alternate;
+}
+
+.adj-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.adj-btn {
+    border: 1px solid #ccc;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 0.6rem;
+    padding: 3px 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.1s;
+}
+
+.adj-btn:active {
+    background: #ccc;
+}
+
+.step-input {
+    width: 60px !important;
+    text-align: center;
+    border: 2px solid #1abc9c !important;
+    border-radius: 6px !important;
+    font-size: 1.1rem !important;
+    padding: 3px !important;
+    background: #fdfdfd !important;
+    color: #333 !important;
+    font-weight: bold;
+}
+
+/* Hide blinking cursor and text selection, add blocky border for highlight */
+.score-input:focus {
+    outline: none !important;
+    caret-color: transparent !important;
+}
+
+.score-input::selection {
+    background: transparent;
+    color: inherit;
+}
+
+/* ================= Timer Styles ================= */
+
+.timer-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: inherit;
+}
+
+#smartTimerContainer {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
+}
+
+.timer-display {
+    font-family: monospace;
+    font-size: 15rem;
+    color: white;
+    cursor: pointer;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    line-height: 1;
+    direction: ltr; /* Ensure numbers format correctly */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    outline: none;
+}
+
+.timer-subtitle {
+    font-size: 2rem;
+    color: #888888;
+    margin-top: 10px;
+    font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif;
+    margin-bottom: 40px;
+}
+
+#timerSettingsModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+#timerSettingsModal.show {
+    display: flex;
+}
+
+#timerSettingsBox {
+    background: #1a1a2e;
+    border: 2px solid #ff416c;
+    border-radius: 16px;
+    padding: 30px;
+    width: 800px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    color: white;
+    font-family: Arial, sans-serif;
+    direction: ltr;
+}
+
+#timerSettingsBox h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 15px;
+}
+
+.timer-input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timer-input-group label {
+    font-size: 1.1rem;
+}
+
+.timer-input-group input[type="number"] {
+    width: 90px;
+    font-size: 1.5rem;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    text-align: center;
+}
+
+.timer-input-group input[type="color"] {
+    width: 90px;
+    height: 40px;
+    padding: 2px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+}
+
+.timer-input-group select {
+    width: 140px;
+    font-size: 1.1rem;
+    padding: 6px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+}
+
+.timer-input-group select option {
+    background: #1a1a2e;
+    color: white;
+}
+
+.settings-columns {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.settings-column {
+    flex: 1;
+    min-width: 280px;
+}
+
+.settings-group-title {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ffb86c;
+}
+
+.settings-column .settings-group-title:first-child {
+    margin-top: 0;
+}
+
+.timer-pulsate {
+    animation: pulsate 1s infinite alternate;
+}
+
+/* Downloading Overlay Styles */
+#downloadOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    backdrop-filter: blur(5px);
+}
+
+.download-spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255,255,255,0.2);
+    border-top-color: #43e97b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.download-text {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#customAlertOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    font-family: Arial, sans-serif;
+}
+
+.custom-alert-box {
+    background: #1a1a2e;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    max-width: 400px;
+    width: 90%;
+}
+
+.custom-alert-box h2 {
+    margin-top: 0;
+    color: #43e97b;
+    margin-bottom: 15px;
+}
+
+.custom-alert-box p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: #ddd;
+}
+
+.custom-alert-btn {
+    background: #1abc9c;
+    color: white;
+    font-size: 1.2rem;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.custom-alert-btn:hover {
+    background: #16a085;
+}
+
+.download-progress-bar {
+    width: 300px;
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.download-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #43e97b;
+    transition: width 0.1s linear;
+}
+
+@keyframes pulsate {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Toss Screen Styles */
+#tossScreen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 30px;
+    z-index: 1000;
+}
+
+.toss-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.toss-controls input {
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', Arial, sans-serif;
+    background: rgba(255,255,255,0.9);
+    outline: none;
+    width: 200px;
+}
+
+.toss-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    width: 98%;
+    max-width: 1800px;
+    margin-top: 40px;
+    padding-bottom: 30px;
+    perspective: 1000px;
+}
+
+.toss-card-wrapper {
+    position: relative;
+}
+
+.toss-del-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.toss-card-wrapper:hover .toss-del-btn {
+    display: block;
+}
+
+.toss-card {
+    width: 150px;
+    height: 150px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.toss-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border-radius: 18px;
+}
+
+.toss-card.is-flipped .toss-card-inner {
+    transform: rotateY(180deg);
+}
+
+.toss-card.is-mixing {
+    animation: cardMixShake 0.4s infinite alternate ease-in-out;
+}
+
+@keyframes cardMixShake {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33% { transform: translate(-10px, -10px) rotate(-5deg) scale(1.05); }
+    66% { transform: translate(10px, 5px) rotate(5deg) scale(0.95); }
+    100% { transform: translate(-5px, 10px) rotate(-3deg) scale(1.02); }
+}
+
+.toss-card-front, .toss-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.toss-card-front {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    color: #222;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border: 3px solid #ccc;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.toss-team-name {
+    width: 100%;
+    outline: none;
+    border-bottom: 1px dashed transparent;
+    transition: 0.2s border-color;
+}
+
+.toss-team-name:focus, .toss-team-name:hover {
+    border-bottom: 1px dashed rgba(0,0,0,0.3);
+    cursor: text;
+}
+
+.toss-card-back {
+    background: linear-gradient(135deg, #1cb5e0 0%, #000851 100%);
+    color: white;
+    transform: rotateY(180deg);
+    font-size: 4.5rem;
+    border: 3px solid rgba(255,255,255,0.3);
+}
+
+.toss-number {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    font-size: 1rem;
+    color: #666;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+}
+
+/* Toss Settings Modal */
+#tossSettingsModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+#tossSettingsModal.show {
+    display: flex;
+}
+#tossSettingsBox {
+    background: #112233;
+    padding: 40px;
+    border-radius: 15px;
+    width: 600px;
+    max-width: 90%;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    text-align: left;
+}
+#tossSettingsBox h2 {
+    margin-top: 0;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.app-logo-img {
+    max-width: 100%;
+    object-fit: contain;
+    display: none;
+    margin: 20px auto 10px auto;
+    z-index: 10;
+}
